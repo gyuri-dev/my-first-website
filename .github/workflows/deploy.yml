@@ -39,18 +39,17 @@ jobs:
       - name: Prepare pages directory
         run: |
           mkdir -p _site
-          # 루트의 정적 파일들 복사 (node_modules, .git 등 제외)
+          # 루트의 정적 파일들 복사 (프로젝트 폴더·빌드 결과물 제외)
           rsync -av --exclude='_site' \
                     --exclude='.git' \
                     --exclude='node_modules' \
-                    --exclude='my-portfolio/node_modules' \
-                    --exclude='my-portfolio/dist' \
-                    --exclude='ui_test/node_modules' \
-                    --exclude='lecture1/node_modules' \
-                    --exclude='lecture1/_template_settings/node_modules' \
+                    --exclude='my-portfolio' \
+                    --exclude='ui_test' \
+                    --exclude='lecture1' \
                     . _site/
-          # my-portfolio 빌드 결과물을 _site/my-portfolio/ 로 이동
-          cp -r my-portfolio/dist _site/my-portfolio
+          # my-portfolio dist 내용물을 _site/my-portfolio/ 에 직접 복사
+          mkdir -p _site/my-portfolio
+          cp -r my-portfolio/dist/. _site/my-portfolio/
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
