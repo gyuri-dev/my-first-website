@@ -19,12 +19,49 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      # ── my-portfolio 빌드 ──────────────────────────────────────────────
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: my-portfolio/package-lock.json
+
+      - name: Install dependencies (my-portfolio)
+        working-directory: my-portfolio
+        run: npm ci
+
+      - name: Build my-portfolio
+        working-directory: my-portfolio
+        run: npm run build
+
+      # ── 배포 디렉토리 구성 ────────────────────────────────────────────
+      # 루트 정적 파일은 그대로 유지, my-portfolio/dist → my-portfolio/
+      - name: Prepare pages directory
+        run: |
+          mkdir -p _site
+          # 루트의 정적 파일들 복사 (node_modules, .git 등 제외)
+          rsync -av --exclude='_site' \
+                    --exclude='.git' \
+                    --exclude='node_modules' \
+                    --exclude='my-portfolio/node_modules' \
+                    --exclude='my-portfolio/dist' \
+                    --exclude='ui_test/node_modules' \
+                    --exclude='lecture1/node_modules' \
+                    --exclude='lecture1/_template_settings/node_modules' \
+                    . _site/
+          # my-portfolio 빌드 결과물을 _site/my-portfolio/ 로 이동
+          cp -r my-portfolio/dist _site/my-portfolio
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: '_site'
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

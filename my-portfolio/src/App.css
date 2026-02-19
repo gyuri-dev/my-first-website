@@ -1,0 +1,4 @@
+/* App.css — 기본 Vite 스타일 제거, MUI가 전담 */
+#root {
+  min-height: 100vh;
+}

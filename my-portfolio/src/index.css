@@ -1,0 +1,57 @@
+/* 던킨 컬러 팔레트 디자인 시스템 CSS 변수 */
+:root {
+  --color-primary:        #FF6B2B;
+  --color-primary-light:  #FF9260;
+  --color-primary-dark:   #CC4A12;
+  --color-secondary:      #E91F8A;
+  --color-accent:         #F7C948;
+  --color-bg-primary:     #FDF7F2;
+  --color-bg-secondary:   #FFFFFF;
+  --color-bg-tertiary:    #F5EDE0;
+  --color-text-primary:   #1A1A1A;
+  --color-text-secondary: #6B5B4E;
+  --color-text-muted:     #A89485;
+  --color-text-brand:     #FF6B2B;
+  --color-text-on-dark:   #FFFFFF;
+  --color-button-primary: #FF6B2B;
+  --color-button-hover:   #FF3D00;
+  --color-button-active:  #CC4A12;
+  --color-link:           #FF6B2B;
+  --color-link-hover:     #E91F8A;
+  --color-border:         #E0D5C8;
+  --color-border-focus:   #FF6B2B;
+  --color-border-brand:   #FF6B2B;
+  --color-success:        #4CAF50;
+  --color-warning:        #F7C948;
+  --color-error:          #E53935;
+  --color-info:           #2196F3;
+  --shadow-card:  0 4px 16px rgba(255, 107, 43, 0.12);
+  --shadow-modal: 0 8px 32px rgba(26, 26, 26, 0.18);
+  --overlay-dark: rgba(26, 26, 26, 0.5);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: "Pretendard", "Noto Sans KR", "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+a {
+  color: var(--color-link);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--color-link-hover);
+}
