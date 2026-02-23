@@ -47,6 +47,15 @@ jobs:
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
           VITE_UNSPLASH_ACCESS_KEY: ${{ secrets.VITE_UNSPLASH_ACCESS_KEY }}
 
+      # ── ui_test 빌드 ───────────────────────────────────────────────────
+      - name: Install dependencies (ui_test)
+        working-directory: ui_test
+        run: npm install
+
+      - name: Build ui_test
+        working-directory: ui_test
+        run: npm run build
+
       # ── 배포 디렉토리 구성 ────────────────────────────────────────────
       - name: Prepare pages directory
         run: |
@@ -66,6 +75,9 @@ jobs:
           # mini_sns dist 내용물을 _site/mini_sns/ 에 직접 복사
           mkdir -p _site/mini_sns
           cp -r mini_sns/dist/. _site/mini_sns/
+          # ui_test dist 내용물을 _site/ui_test/ 에 직접 복사
+          mkdir -p _site/ui_test
+          cp -r ui_test/dist/. _site/ui_test/
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
