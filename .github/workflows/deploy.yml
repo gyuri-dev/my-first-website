@@ -20,12 +20,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # ── my-portfolio 빌드 ──────────────────────────────────────────────
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
+      # ── my-portfolio 빌드 ──────────────────────────────────────────────
       - name: Install dependencies (my-portfolio)
         working-directory: my-portfolio
         run: npm install
@@ -34,8 +34,20 @@ jobs:
         working-directory: my-portfolio
         run: npm run build
 
+      # ── mini_sns 빌드 ──────────────────────────────────────────────────
+      - name: Install dependencies (mini_sns)
+        working-directory: mini_sns
+        run: npm install
+
+      - name: Build mini_sns
+        working-directory: mini_sns
+        run: npm run build
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_UNSPLASH_ACCESS_KEY: ${{ secrets.VITE_UNSPLASH_ACCESS_KEY }}
+
       # ── 배포 디렉토리 구성 ────────────────────────────────────────────
-      # 루트 정적 파일은 그대로 유지, my-portfolio/dist → my-portfolio/
       - name: Prepare pages directory
         run: |
           mkdir -p _site
@@ -45,11 +57,15 @@ jobs:
                     --exclude='node_modules' \
                     --exclude='my-portfolio' \
                     --exclude='ui_test' \
+                    --exclude='mini_sns' \
                     --exclude='lecture1' \
                     . _site/
           # my-portfolio dist 내용물을 _site/my-portfolio/ 에 직접 복사
           mkdir -p _site/my-portfolio
           cp -r my-portfolio/dist/. _site/my-portfolio/
+          # mini_sns dist 내용물을 _site/mini_sns/ 에 직접 복사
+          mkdir -p _site/mini_sns
+          cp -r mini_sns/dist/. _site/mini_sns/
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
