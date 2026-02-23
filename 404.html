@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>다이어리를 하나만 사자 📔</title>
+    <script>
+      // GitHub Pages SPA 라우팅 리다이렉트
+      // /my-first-website/mini_sns/free 같은 경로가 404될 때 실행됨
+      // pathSegmentsToKeep = 2 → /my-first-website/mini_sns 까지 유지
+      var pathSegmentsToKeep = 2;
+      var l = window.location;
+      l.replace(
+        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
+        l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+        l.hash
+      );
+    </script>
+  </head>
+</html>
