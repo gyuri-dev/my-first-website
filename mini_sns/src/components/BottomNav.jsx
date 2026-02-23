@@ -32,6 +32,12 @@ const UserIcon = () => (
   </svg>
 )
 
+const ChatIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+)
+
 export default function BottomNav() {
   const { pathname } = useLocation()
   const { user } = useAuth()
@@ -40,6 +46,7 @@ export default function BottomNav() {
     { to: '/', icon: <HomeIcon />, label: '홈' },
     { to: '/posts', icon: <ListIcon />, label: '게시물' },
     { to: '/create', icon: null, label: '작성' },
+    { to: '/free', icon: <ChatIcon />, label: '자유' },
     { to: user ? '/mypage' : '/login', icon: <UserIcon />, label: '마이' },
   ]
 
@@ -82,7 +89,7 @@ export default function BottomNav() {
           )
         }
 
-        const isActive = pathname === item.to || (item.to === '/posts' && pathname.startsWith('/post'))
+        const isActive = pathname === item.to || (item.to === '/posts' && pathname.startsWith('/post')) || (item.to === '/free' && pathname === '/free')
 
         return (
           <Link key={item.to} to={item.to} style={{ textDecoration: 'none' }}>

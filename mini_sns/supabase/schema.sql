@@ -128,6 +128,25 @@ CREATE OR REPLACE TRIGGER on_like_change
   AFTER INSERT OR DELETE ON public.likes
   FOR EACH ROW EXECUTE FUNCTION public.update_likes_count();
 
+-- =============================================
+-- 자유 게시판 (비로그인 가능)
+-- =============================================
+
+CREATE TABLE IF NOT EXISTS public.free_posts (
+  id BIGSERIAL PRIMARY KEY,
+  nickname TEXT NOT NULL DEFAULT '익명',
+  password TEXT,  -- 평문 저장 (간단한 게시판 수준, 삭제 시 확인용)
+  caption TEXT NOT NULL,
+  image_url TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL
+);
+
+ALTER TABLE public.free_posts ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "자유게시판 전체 공개" ON public.free_posts FOR SELECT USING (true);
+CREATE POLICY "누구나 작성 가능" ON public.free_posts FOR INSERT WITH CHECK (true);
+CREATE POLICY "누구나 삭제 가능" ON public.free_posts FOR DELETE USING (true);
+
 -- Storage 버킷 생성 (avatars용)
 INSERT INTO storage.buckets (id, name, public) VALUES ('avatars', 'avatars', true)
 ON CONFLICT (id) DO NOTHING;

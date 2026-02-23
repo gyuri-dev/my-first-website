@@ -6,6 +6,7 @@ import PostList from './pages/PostList'
 import PostDetail from './pages/PostDetail'
 import PostCreate from './pages/PostCreate'
 import MyPage from './pages/MyPage'
+import FreeBoard from './pages/FreeBoard'
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
           <Route path="/post/:id" element={<PostDetail />} />
           <Route path="/create" element={<PostCreate />} />
           <Route path="/mypage" element={<MyPage />} />
+          <Route path="/free" element={<FreeBoard />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AuthProvider>
