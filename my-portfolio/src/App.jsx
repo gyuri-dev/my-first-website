@@ -5,11 +5,13 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
 import Projects from './pages/Projects';
+import CustomCursor from './components/CustomCursor';
 import { colors } from './theme';
 
 function App() {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', bgcolor: colors.bgPrimary }}>
+      <CustomCursor />
       <Navbar />
       <Box component="main" sx={{ flexGrow: 1 }}>
         <Routes>
