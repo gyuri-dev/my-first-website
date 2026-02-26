@@ -18,6 +18,7 @@ import Section13 from './components/sections/Section13';
 import Section14 from './components/sections/Section14';
 import Section15 from './components/sections/Section15';
 import Section16 from './components/sections/Section16';
+import Section17 from './components/sections/Section17';
 
 function App() {
   return (
@@ -59,6 +60,7 @@ function App() {
         <Section14 />
         <Section15 />
         <Section16 />
+        <Section17 />
       </Box>
     </Box>
   );
