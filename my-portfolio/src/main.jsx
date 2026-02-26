@@ -28,7 +28,7 @@ function AppShell() {
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter basename="/my-first-website/my-portfolio">
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <ThemeModeProvider>
         <AppShell />
       </ThemeModeProvider>
